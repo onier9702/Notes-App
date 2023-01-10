@@ -33,6 +33,10 @@ security:
     access_control:
         # - { path: ^/admin, roles: ROLE_ADMIN }
         # - { path: ^/profile, roles: ROLE_USER }
+        # - { path: ^/, roles: ROLE_USER }
+        - { path: ^/note, roles: ROLE_USER }
+        - { path: ^/delete_note, roles: ROLE_USER }
+        - { path: ^/create-note, roles: ROLE_USER }
 
 when@test:
     security:

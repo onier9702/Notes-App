@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ parent() }} Create Note{% endblock %}
+
+{% block body %}
+    {{ parent() }}
+    {# {{ form(form) }} #}
+
+    <h1 class="text-info ml-2">Create Note</h1>
+    <div class="row">
+        <div class="col-6 ml-3">
+            {{ form(form) }}
+        </div>
+        <div class="col-2">
+            <div class="form-check">
+                <input onClick="" class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                <label class="form-check-label" for="flexCheckDefault">
+                    Public
+                </label>
+            </div>
+        </div>
+    </div>
+
+
+{% endblock %}

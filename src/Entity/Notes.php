@@ -30,6 +30,12 @@ class Notes
     #[ORM\Column]
     private ?bool $isActive = null;
 
+    #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'notes')]
+    private $user;
+
+    // #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    // private ?\DateTimeInterface $date_removed = null;
+
     public function __construct() {
         $this->isPublic = false;
         $this->date_posted = new \DateTime();
@@ -77,6 +83,18 @@ class Notes
         return $this;
     }
 
+    // public function getDateRemoved(): ?\DateTimeInterface
+    // {
+    //     return $this->date_removed;
+    // }
+
+    // public function setDateRemoved(\DateTimeInterface $date_removed = new \DateTime()): self
+    // {
+    //     $this->date_removed = $date_removed;
+
+    //     return $this;
+    // }
+
     public function getIsPublic(): ?bool
     {
         return $this->isPublic;
@@ -96,6 +114,18 @@ class Notes
     public function setIsActive(bool $isActive): self
     {
         $this->isActive = $isActive;
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
 
         return $this;
     }

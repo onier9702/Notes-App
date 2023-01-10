@@ -6,10 +6,12 @@
         <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
         {# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
         {% block stylesheets %}
+            <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}" >
             {{ encore_entry_link_tags('app') }}
         {% endblock %}
 
         {% block javascripts %}
+            <script src="{{ asset('js/bootstrap.min.js') }}" ></script>
             {{ encore_entry_script_tags('app') }}
         {% endblock %}
     </head>
@@ -23,18 +25,21 @@
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav mr-auto">
-                    <li class="nav-item active">
-                        <a class="nav-link" href="{{ path('app_dashboard') }}">Dashboard</a>
-                    </li>
-                    <li class="nav-item active">
-                        <a class="nav-link" href="#">Create_Note</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ path('app_login') }}">Login</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ path('app_register') }}">Sign_Up</a>
-                    </li>
+                        <li class="nav-item active">
+                            <a class="nav-link" href="{{ path('app_dashboard') }}">Dashboard</a>
+                        </li>
+                        <li class="nav-item active">
+                            <a class="nav-link" href="{{ path('app_create_notes') }}">Create_Note</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ path('app_login') }}">Login</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ path('app_register') }}">Sign_Up</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ path('app_logout') }}">Logout</a>
+                        </li>
                     </ul>
                     <form class="form-inline my-2 my-lg-0">
                     <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">

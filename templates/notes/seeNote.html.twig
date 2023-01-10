@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ parent() }} Single Note{% endblock %}
+
+{% block body %}
+    {{ parent() }}
+    {% block stylesheets %}
+        <link rel="stylesheet" href="{{ asset('css/single_note.css') }}" >
+        <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}" >
+    {% endblock %}
+
+    <h1 class="ml-2 title_edit_note">Edit Note</h1>
+    <div class="row ml-4">
+        <div class="col-8">
+            {{ form(form) }}
+        </div>
+    </div>
+
+
+{% endblock %}

@@ -21,6 +21,30 @@ class NotesRepository extends ServiceEntityRepository
         parent::__construct($registry, Notes::class);
     }
 
+    // public function findAllNotesBelongOneUser($idUser) {
+    //     return $this->getEntityManager()->createQuery(
+    //         'SELECT p
+    //         FROM App\Entity\Notes notes
+    //         WHERE notes.user = :idUser
+    //         '
+    //     )->getResult();
+        
+    // }
+
+    public function deleteOneNoteById($id ) {
+        // $em = $doctrine->getManager();
+        // return $this->getEntityManager()->createQuery(
+        //     'SELECT *
+        //     FROM App\Entity\Notes notes
+        //     WHERE notes.id = :id
+        //     '
+        // )->getResult();
+        
+        // $condition = $noteRow->isDeleted;
+        // $noteRow->setIsDeleted(true);
+        
+    }
+
     public function save(Notes $entity, bool $flush = false): void
     {
         $this->getEntityManager()->persist($entity);
@@ -38,6 +62,8 @@ class NotesRepository extends ServiceEntityRepository
             $this->getEntityManager()->flush();
         }
     }
+
+   
 
 //    /**
 //     * @return Notes[] Returns an array of Notes objects

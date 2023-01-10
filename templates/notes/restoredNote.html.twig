@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ parent() }} Restored Note{% endblock %}
+
+{% block body %}
+    {{ parent() }}
+
+    {# {{ dump(noteDeleted) }} #}
+
+    <h1 class="ml-3 text-info">Successfully</h1>
+    <div class="col-8">
+        <div class="h-20 text-succes">
+            <p>You have restored the note with title: {{noteRestored.title}}</p>
+        </div>
+        
+    </div>
+
+
+{% endblock %}

@@ -1,0 +1,36 @@
+
+/* Globals */
+p {
+    margin: 0;
+    margin-bottom:0rem ;
+    padding: 0;
+}
+
+.note {
+    border: 0.8px solid rgb(206, 199, 199);
+    background-color: rgb(238, 225, 225);
+    padding: 20px;
+    margin: 20px auto;
+    width: 90%;
+}
+
+.note_title {
+    color: rgb(243, 126, 126);
+    margin-bottom: 10px;
+}
+
+.title_edit_note {
+    color: rgb(243, 126, 126);
+}
+
+.note_h5 {
+    color: rgb(240, 175, 175);
+}
+
+.app-title {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
