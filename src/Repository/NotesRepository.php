@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Entity\Notes;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use phpDocumentor\Reflection\Types\Boolean;
 
 /**
  * @extends ServiceEntityRepository<Notes>
@@ -21,15 +22,21 @@ class NotesRepository extends ServiceEntityRepository
         parent::__construct($registry, Notes::class);
     }
 
-    // public function findAllNotesBelongOneUser($idUser) {
-    //     return $this->getEntityManager()->createQuery(
-    //         'SELECT p
-    //         FROM App\Entity\Notes notes
-    //         WHERE notes.user = :idUser
-    //         '
-    //     )->getResult();
+    public function findAllNotesArePublic(bool $isPublic, $user): array {
+        // return $this->getEntityManager()->createQuery('
+        //     SELECT notes.id, notes.title, notes.datePosted, notes.description, notes.isPublic, notes.isActive
+        //     FROM App:Notes notes
+        //     WHERE notes.isPublic = true
+        //     andWhere notes.user != :user
+        //     ')->getResult();
+        return $this->createQueryBuilder('notes')
+            ->where( 'notes.isPublic =:isPublic and notes.user <>:user' )
+            ->setParameter('isPublic', $isPublic)
+            ->setParameter('user', $user)
+            ->getQuery()
+            ->getResult();
         
-    // }
+    }
 
     public function deleteOneNoteById($id ) {
         // $em = $doctrine->getManager();

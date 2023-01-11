@@ -16,7 +16,10 @@ class NoteEditType extends AbstractType
         $builder
             ->add('title')
             ->add('description')
-            ->add('isPublic', CheckboxType::class, ['label' => 'Public'])
+            ->add('isPublic', CheckboxType::class, [
+                'label' => 'Public', 
+                'required' => false
+            ] )
             ->add('Submit', SubmitType::class)
             // ->add('date_posted')
             // ->add('isPublic')

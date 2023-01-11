@@ -17,7 +17,7 @@ class NoteCreateType extends AbstractType
             ->add('title')
             ->add('description', TextareaType::class)
             ->add('Create', SubmitType::class)
-            // ->add('date_posted')
+            // ->add('datePosted')
             // ->add('isPublic')
             // ->add('isActive')
         ;

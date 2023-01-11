@@ -22,7 +22,7 @@
             <h2 class="note_title">{{note.title}}</h2>
             <div class="d-flex align-items-center">
                 <h5 class="mr-3 note_h5">Day Posted: </h5>
-                <h6>{{note.dateposted | date}}</h6>
+                <h6>{{note.datePosted | date}}</h6>
             </div>
 
             <div class="d-flex align-items-center">
@@ -39,7 +39,7 @@
                 <button class="edit_note btn btn-info ml-4" 
                         onclick="window.location.href='{{ path('restore_note', { id: note.id }) }}'" 
                 >Restore Note</button>
-                {# <span class="text-info ml-5">Date_was_removed: <strong>{{note.date_removed}}</strong></span> #}
+                
             {% endif %}
 
             {% if (note.isActive) %}

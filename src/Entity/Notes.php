@@ -22,7 +22,7 @@ class Notes
     private ?string $description = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
-    private ?\DateTimeInterface $date_posted = null;
+    private ?\DateTimeInterface $datePosted = null;
 
     #[ORM\Column]
     private ?bool $isPublic = null;
@@ -38,7 +38,7 @@ class Notes
 
     public function __construct() {
         $this->isPublic = false;
-        $this->date_posted = new \DateTime();
+        $this->datePosted = new \DateTime();
         $this->isActive = true;
     }
 
@@ -73,12 +73,12 @@ class Notes
 
     public function getDatePosted(): ?\DateTimeInterface
     {
-        return $this->date_posted;
+        return $this->datePosted;
     }
 
-    public function setDatePosted(\DateTimeInterface $date_posted): self
+    public function setDatePosted(\DateTimeInterface $datePosted): self
     {
-        $this->date_posted = $date_posted;
+        $this->datePosted = $datePosted;
 
         return $this;
     }

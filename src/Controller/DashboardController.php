@@ -23,7 +23,10 @@ class DashboardController extends AbstractController
 
         $em = $doctrine->getManager();
         $user = $this->getUser();
-        $notes = $em->getRepository(Notes::class)->findBy(['user' => $user]);
+        $notesBelongUser = $em->getRepository(Notes::class)->findBy(['user' => $user]);
+        $notesArePublic = $em->getRepository(Notes::class)->findAllNotesArePublic(true, $user);
+        // $notes = $em->getRepository(Notes::class)->findAllNotesArePublic(true, $user);
+        $notes = array_merge($notesBelongUser, $notesArePublic);
 
         return $this->render('dashboard/index.html.twig', [
             'controller_name' => 'DashboardController',
