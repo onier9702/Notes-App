@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Notes;
+use App\Entity\Tags;
 use App\Form\NoteCreateType;
 use App\Form\NoteEditType;
 use Doctrine\Persistence\ManagerRegistry;
@@ -13,6 +14,15 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class NotesController extends AbstractController
 {
+
+    protected $em;
+
+    public function __construct(ManagerRegistry $doctrine)
+    {
+        $this->em = $doctrine->getManager();
+    }
+
+    // Create Note
     #[Route('/create-note', name: 'app_create_notes')]
     public function createNote(
         Request $request,
@@ -20,11 +30,16 @@ class NotesController extends AbstractController
     ): Response {
         $em = $doctrine->getManager();
         $note = new Notes();
-        $form = $this->createForm(NoteCreateType::class, $note);
+        $tags = $em->getRepository(Tags::class)->getAllTags();
+        $form = $this->createForm(NoteCreateType::class, $note, [
+            'tag' => $tags,
+        ]);
         $form->handleRequest($request);
 
         if ( $form->isSubmitted() && $form->isValid() ) {
 
+            $tag = $form->get('tag')->getData();
+            $note->setTag($tag);
             $user = $this->getUser();
             $note->setUser($user);
 
@@ -35,20 +50,27 @@ class NotesController extends AbstractController
         }
 
         return $this->render('notes/index.html.twig', [
-            // 'controller_name' => 'NotesController',
-            'form' => $form->createView()
+            'form' => $form->createView(),
+            'tags' => $tags,
         ]);
     }
 
+    // Edit Notes
     #[Route('/note/{id}', name: 'edit_note')]
     public function seeOneNoteByID($id, Request $request, ManagerRegistry $doctrine) {
         $em = $doctrine->getManager();
         $note = $em->getRepository(Notes::class)->find($id);
-        $form = $this->createForm(NoteEditType::class, $note);
+        $tags = $em->getRepository(Tags::class)->getAllTags();
+        $form = $this->createForm(NoteEditType::class, $note, [
+            'tag' => $tags,
+        ]);
         $form->handleRequest($request);
 
         if ( $form->isSubmitted() && $form->isValid() ) {            
 
+            $tag = $form->get('tag')->getData();
+            $note->setTag($tag);
+            
             $em->persist($note);
             $em->flush();
             return $this->redirectToRoute('app_dashboard');
@@ -57,7 +79,8 @@ class NotesController extends AbstractController
 
         return $this->render('notes/seeNote.html.twig', [
             // 'controller_name' => 'NotesController',
-            'form' => $form->createView()
+            'form' => $form->createView(),
+            'tags' => $tags,
         ]);
     }
 

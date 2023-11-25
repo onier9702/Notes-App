@@ -13,26 +13,47 @@
     <div class="app-title">
         <h1 class="text-info">Notes App</h1>
     </div>
+    {# {{ dump(notes) }} #}
     <hr/>
     <div class="ml-4">
+
         {% for note in notes %}
 
         <div class="note">
 
-            <h2 class="note_title">{{note.title}}</h2>
+            <div class="d-flex justify-content-between">
+                <h2 class="note_title">{{note.title}}</h2>
+                {% if note.isPublic %}
+                <div>
+                    <i class="bi bi-check2-circle"><span class="ml-2 text-info">Public</span></i>
+                </div>
+                {% endif %}
+            </div>
             <div class="d-flex align-items-center">
                 <h5 class="mr-3 note_h5">Day Posted: </h5>
                 <h6>{{note.datePosted | date}}</h6>
             </div>
 
             <div class="d-flex align-items-center">
-                <h5 class="mr-3 note_h5">Description:  </h3>
-                <p>{{ note.description }}</p>
+                <h5 class="mr-3 note_h5">Owned: </h5>
+                <h6>{{note.user.name}}</h6>
             </div>
 
-            <button class="edit_note btn btn-success mr-2" 
-                    onclick="window.location.href='{{ path('edit_note', { id: note.id }) }}'" 
-            >Edit</button>
+            <div class="d-flex align-items-center">
+                <h5 class="mr-3">Description:  </h3>
+                <p class="mb-0">{{ note.description }}</p>
+            </div>
+
+            <div class="d-flex align-items-center">
+                <h5 style="color: #a3b5e9" class="mr-3">Tag:  </h3>
+                <p class="mb-0">{{ note.tag.name }}</p>
+            </div>
+
+            {% if ( (note.isActive) and (user == note.user)) %}
+                <button class="edit_note btn btn-success mr-2" 
+                        onclick="window.location.href='{{ path('edit_note', { id: note.id }) }}'" 
+                >Edit</button>
+            {% endif %}
 
             {% if not (note.isActive) %}
                 <span class="text-danger ml-5">Note removed</span>
@@ -42,14 +63,17 @@
                 
             {% endif %}
 
-            {% if (note.isActive) %}
+            {% if ( (note.isActive) and (user == note.user)) %}
                 <button class="edit_note btn btn-danger" 
                         onclick="window.location.href='{{ path('delete_note', { id: note.id }) }}'" 
                 >Delete</button>
             {% endif %}
+
         
         </div>
         {% endfor %}
     </div>
+
+    <i class="bi bi-check2-circle"></i>
     
 {% endblock %}

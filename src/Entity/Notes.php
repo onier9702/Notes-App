@@ -4,8 +4,10 @@ namespace App\Entity;
 
 use App\Repository\NotesRepository;
 use DateTime;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints\Collection;
 
 #[ORM\Entity(repositoryClass: NotesRepository::class)]
 class Notes
@@ -33,10 +35,11 @@ class Notes
     #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'notes')]
     private $user;
 
-    // #[ORM\Column(type: Types::DATETIME_MUTABLE)]
-    // private ?\DateTimeInterface $date_removed = null;
+    #[ORM\ManyToOne(targetEntity: Tags::class, inversedBy: 'notes', cascade: ['persist'])]
+    private $tag;
 
     public function __construct() {
+        // $this->tags = new ArrayCollection();
         $this->isPublic = false;
         $this->datePosted = new \DateTime();
         $this->isActive = true;
@@ -129,4 +132,42 @@ class Notes
 
         return $this;
     }
+    
+    public function getTag(): ?Tags
+    {
+        return $this->tag;
+    }
+
+    public function setTag(Tags $tag): self
+    {
+        $this->tag = $tag;
+
+        return $this;
+    }
+
+    
+
+    // public function removeTag(Tags $tag): self
+    // {
+    //     if ($this->tags->removeElement($tag)) {
+    //         // set the owning side to null (unless already changed)
+    //         if ($tag->getNotes() === $this) {
+    //             $tag->setNotes(null);
+    //         }
+    //     }
+
+    //     return $this;
+    // }
+
+    // in case tags be this way ( array variable in DB )
+    // public function getTags(): array
+    // {
+    //     $tags = $this->tags;
+    //     // guarantee every user at least has ROLE_USER
+    //     // $tags[] = '';
+
+    //     return array_unique($tags);
+    // }
+
+    
 }

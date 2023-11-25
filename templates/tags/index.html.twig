@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ parent() }} Create Tag!{% endblock %}
+
+{% block body %}
+
+    {# {{ dump(tags) }} #}
+
+    <div>
+        <h1 class="ml-3">Create Tag</h1>
+    </div>
+
+    <div class="col-6">
+        {{ form(formTag) }}
+    </div>
+
+{% endblock %}

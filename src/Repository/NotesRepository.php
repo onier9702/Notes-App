@@ -22,15 +22,22 @@ class NotesRepository extends ServiceEntityRepository
         parent::__construct($registry, Notes::class);
     }
 
+    public function notesBelongUser($user) {
+        return $this->createQueryBuilder('n')
+            ->select('n', 't') // Select both the note and tag entities
+            ->where('n.user = :user')
+            ->join('n.tag', 't')
+            ->setParameter('user', $user)
+            ->getQuery()
+            ->getResult();
+    }
+
+
     public function findAllNotesArePublic(bool $isPublic, $user): array {
-        // return $this->getEntityManager()->createQuery('
-        //     SELECT notes.id, notes.title, notes.datePosted, notes.description, notes.isPublic, notes.isActive
-        //     FROM App:Notes notes
-        //     WHERE notes.isPublic = true
-        //     andWhere notes.user != :user
-        //     ')->getResult();
         return $this->createQueryBuilder('notes')
+            ->select('notes', 't')
             ->where( 'notes.isPublic =:isPublic and notes.user <>:user' )
+            ->join('notes.tag', 't')
             ->setParameter('isPublic', $isPublic)
             ->setParameter('user', $user)
             ->getQuery()
